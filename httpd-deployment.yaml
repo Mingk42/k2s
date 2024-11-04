@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: httpd-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: httpd
@@ -17,6 +17,13 @@ spec:
           image: httpd
           ports:
           - containerPort: 80
+          resources:
+            requests:
+              cpu: 15m
+              memory: 10Mi
+            limits:
+              cpu: 15m
+              memory: 10Mi
 
 ---
 apiVersion: v1
@@ -30,4 +37,4 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-  type: ClusterIP
+  type: NodePort
